@@ -29,18 +29,13 @@
   <body class="u-body u-xl-mode" data-lang="en">
     
   <?php
-    // Database connection details
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "ems_db";
+    session_start();
+    include 'database.php';
 
-    // Create connection
-    $conn = new mysqli('localhost', 'root', '', 'ems_db');
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    // Check if the user is logged in
+    if (!isset($_SESSION['email'])) {
+        header("Location: login.html");
+        exit();
     }
 
     // Function to retrieve data from the database
@@ -77,6 +72,7 @@
             <ul class="u-nav u-spacing-20 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Home.html" style="padding: 10px;">Home</a>
 </li><li class="u-nav-item"><a class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Schedule.html" style="padding: 10px;">Schedule</a>
 </li><li class="u-nav-item"><a class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Transport-.php" style="padding: 10px;">Transport </a>
+</li><li class="u-nav-item"><a class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="logout.php" style="padding: 10px;">Logout</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -123,10 +119,5 @@
     <footer class="u-align-center u-clearfix u-footer u-white u-footer" id="sec-ddd5"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Cape Peninsula University of Technology</p>
       </div></footer>
-
-      <?php
-    // Close the database connection
-    $conn->close();
-    ?>
   
 </body></html>
