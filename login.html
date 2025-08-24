@@ -10,7 +10,8 @@
   	<h2>Login</h2>
   </div>
 	 
-  <form method="post" action="Home.html">
+  <form method="post" action="server.php">
+    <div id="error-message"></div>
   	<div class="input-group">
   		<label>Email</label>
   		<input type="email" name="email" >
@@ -26,5 +27,19 @@
   		Not yet a sign up? <a href="registration.html">Sign up</a>
   	</p>
   </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const errorMessageDiv = document.getElementById("error-message");
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+
+      if (error === 'incorrect_password') {
+        errorMessageDiv.innerHTML = "<p style='color:red;'>Incorrect password. Please try again.</p>";
+      } else if (error === 'email_not_found') {
+        errorMessageDiv.innerHTML = "<p style='color:red;'>Email not found. Please register first.</p>";
+      }
+    });
+  </script>
 </body>
 </html>

@@ -31,10 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "$conn->connect_error";
             die("Connection Failed : " . $conn->connect_error);
         } else {
+            // Hash the password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
             // Corrected SQL query and prepare statement
             $stmt = $conn->prepare("INSERT INTO registration (firstName, lastName, studentEmail, phoneNumber, password) VALUES (?, ?, ?, ?, ?)");
             // Binding parameters to the prepared statement
-            $stmt->bind_param("sssss", $firstName, $lastName, $studentEmail, $phoneNumber, $password);
+            $stmt->bind_param("sssss", $firstName, $lastName, $studentEmail, $phoneNumber, $hashed_password);
 
             // Executing the prepared statement
             $execval = $stmt->execute();
