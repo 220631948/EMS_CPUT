@@ -5,7 +5,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Function to sanitize input data
+/**
+ * Sanitizes input data by trimming whitespace, removing backslashes, and converting special characters to HTML entities.
+ *
+ * @param string $data The input data to be sanitized.
+ * @return string The sanitized data.
+ */
 function sanitizeData($data)
 {
     return htmlspecialchars(stripslashes(trim($data)));

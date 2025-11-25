@@ -56,37 +56,46 @@
   </style>
   
   <body>
+  <!-- Form header -->
   <div class="center">
    
   <h3>Student Registration Form</h3>
   </div>
   
+  <!-- Registration form -->
   <form class = "myForm" id="myForm" action="process_form.php" method="post">
+    <!-- First name input field -->
     <div class="form-group">
      
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" placeholder="Enter first name" name="firstName" required>
     </div>
+    <!-- Last name input field -->
     <div class="form-group">
       <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" placeholder="Enter last name" name="lastName" required>
     </div>
+    <!-- Student email input field -->
     <div class="form-group">
       <label for="studentEmail">Student Email:</label>
       <input type="email" id="studentEmail" placeholder="Enter student email" name="studentEmail" required>
     </div>
+    <!-- Phone number input field -->
     <div class="form-group">
       <label for="phoneNumber">Phone Number:</label>
       <input type="text" id="phoneNumber" placeholder="Enter phone number" name="phoneNumber" required>
     </div>
+    <!-- Password input field -->
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" id="password" placeholder="Enter password" name="password" required>
     </div>
+    <!-- Confirm password input field -->
     <div class="form-group">
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" id="confirmPassword" placeholder="Confirm password" name="confirmPassword" required>
     </div>
+    <!-- Submit button -->
     <button type="submit" class="btn btn-primary submit-btn">Register</button>
   </form>
   
