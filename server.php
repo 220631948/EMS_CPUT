@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
  
@@ -24,17 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Verify password
             if (password_verify($password, $storedPassword)) {
                 // Password is correct, perform login
-                // You can set session variables or perform other actions here
-                echo "Login successful!";
-                header("Location: Transport-.php");
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['user_email'] = $row['studentEmail'];
+                header("Location: transport.php");
                  exit();
-            } //else {
-               // echo "Incorrect password!";
-                //echo "Entered Password: " . $password . "<br>";
-               // echo "Stored Password: " . $storedPassword . "<br>";
-           // }
+            } else {
+                header("Location: login.php?error=1");
+                exit();
+           }
         } else {
-            echo "Email not found!";
+            header("Location: login.php?error=1");
+            exit();
         }
  
         $stmt->close();
