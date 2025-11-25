@@ -29,6 +29,12 @@
   <body class="u-body u-xl-mode" data-lang="en">
     
   <?php
+/**
+ * Displays a list of approved transport requests.
+ *
+ * This script connects to the database, fetches all records from the 'approved'
+ * table, and displays them in a formatted list.
+ */
     // Database connection details
     $servername = "localhost";
     $username = "root";
@@ -43,7 +49,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Function to retrieve data from the database
+    /**
+     * Fetches all records from the 'approved' table in the database.
+     *
+     * @param mysqli $conn The database connection object.
+     * @return array An array of associative arrays representing the fetched records, or an empty array if no records are found.
+     */
     function fetchDataFromDatabase($conn)
     {
         $sql = "SELECT * FROM approved";

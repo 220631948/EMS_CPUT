@@ -53,6 +53,13 @@
   <body class="u-body u-white u-xl-mode" data-lang="en">
     
     <?php
+/**
+ * Manages and displays transport requests.
+ *
+ * This script connects to the database, fetches all records from the 'transport'
+ * table, and displays them in a list. It also provides an "Accept" button for
+ * each record, which, when clicked, moves the record to the 'approved' table.
+ */
     // Database connection details
     $servername = "localhost";
     $username = "root";
@@ -67,7 +74,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Function to retrieve data from the database
+    /**
+     * Fetches all records from the 'transport' table in the database.
+     *
+     * @param mysqli $conn The database connection object.
+     * @return array An array of associative arrays representing the fetched records, or an empty array if no records are found.
+     */
     function fetchDataFromDatabase($conn)
     {
         $sql = "SELECT * FROM transport";
@@ -80,7 +92,14 @@
         }
     }
 
-    // Function to insert data into a different table
+    /**
+     * Inserts a new record into the 'approved' table.
+     *
+     * @param mysqli $conn The database connection object.
+     * @param array $data An associative array containing the data to be inserted.
+     *                    Expected keys: 'title', 'description', 'description2', 'description3'.
+     * @return bool True on success, false on failure.
+     */
 function insertDataIntoNewTable($conn, $data)
 {
     $sql = "INSERT INTO approved (title, description, description2, description3) VALUES (?, ?, ?, ?)";

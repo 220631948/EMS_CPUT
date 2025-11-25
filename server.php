@@ -1,4 +1,12 @@
 <?php
+/**
+ * Handles user login verification.
+ *
+ * This script receives a user's email and password via a POST request,
+ * connects to the database, and verifies the credentials against the
+ * 'registration' table. If the credentials are valid, the user is
+ * redirected to the 'Transport-.php' page.
+ */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
  
