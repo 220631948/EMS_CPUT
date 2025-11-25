@@ -18,12 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentEmail = sanitizeData($_POST['studentEmail']);
     $phoneNumber = sanitizeData($_POST['phoneNumber']);
     $password = sanitizeData($_POST['password']);
+    $confirmPassword = sanitizeData($_POST['confirmPassword']);
 
     // Validating for empty fields
     if (empty($firstName) || empty($lastName) || empty($studentEmail) || empty($phoneNumber) || empty($password)) {
         echo "Please fill in all fields.";
     } elseif (!filter_var($studentEmail, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format.";
+    } elseif ($password !== $confirmPassword) {
+        echo "Passwords do not match.";
     } else {
         // Database connection
         $conn = new mysqli('localhost', 'root', '', 'ems_db');
@@ -31,10 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "$conn->connect_error";
             die("Connection Failed : " . $conn->connect_error);
         } else {
+            // Hash the password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             // Corrected SQL query and prepare statement
             $stmt = $conn->prepare("INSERT INTO registration (firstName, lastName, studentEmail, phoneNumber, password) VALUES (?, ?, ?, ?, ?)");
             // Binding parameters to the prepared statement
-            $stmt->bind_param("sssss", $firstName, $lastName, $studentEmail, $phoneNumber, $password);
+            $stmt->bind_param("sssss", $firstName, $lastName, $studentEmail, $phoneNumber, $hashedPassword);
 
             // Executing the prepared statement
             $execval = $stmt->execute();
@@ -42,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($execval) {
                 //alert ("Data uploaded successfully!");
                 // You can redirect the user to another page using header if needed
-                 header("Location: login.html");
+                 header("Location: login.php");
                  exit();
             } else {
                 echo "Error: " . $stmt->error;
