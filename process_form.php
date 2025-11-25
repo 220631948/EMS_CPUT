@@ -2,10 +2,21 @@
 
 
 <?php
+/**
+ * Handles user registration.
+ *
+ * This script receives user registration data from a form, sanitizes the input,
+ * and inserts a new user record into the 'registration' table in the database.
+ */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Function to sanitize input data
+/**
+ * Sanitize input data by trimming whitespace, removing backslashes, and converting special HTML characters.
+ *
+ * @param string $data The input data to be sanitized.
+ * @return string The sanitized data.
+ */
 function sanitizeData($data)
 {
     return htmlspecialchars(stripslashes(trim($data)));
