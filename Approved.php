@@ -27,7 +27,7 @@
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en">
-    
+    <!-- Header section with navigation -->
   <?php
     // Database connection details
     $servername = "localhost";
@@ -43,7 +43,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Function to retrieve data from the database
+    /**
+     * Fetches all records from the 'approved' table.
+     *
+     * @param mysqli $conn The database connection object.
+     * @return array An array of associative arrays representing the approved records, or an empty array if no records are found.
+     */
     function fetchDataFromDatabase($conn)
     {
         $sql = "SELECT * FROM approved";
@@ -93,6 +98,7 @@
           </div>
         </nav>
       </div></header>
+    <!-- Main content section with buttons -->
     <section class="u-clearfix u-section-1" id="sec-4286">
       <div class="u-clearfix u-sheet u-sheet-1">
         <a href="Transport-.php" class="u-border-none u-btn u-button-style u-hover-grey-25 u-text-palette-1-base u-white u-btn-1">Available</a>
@@ -100,6 +106,7 @@
       </div>
     </section>
 
+    <!-- Loop through and display approved records -->
     <?php foreach ($dataFromDatabase as $record) : ?>
 
     <section class="u-align-center u-clearfix u-white u-section-2" id="sec-8900">
@@ -120,6 +127,7 @@
 
     <?php endforeach; ?> 
     
+    <!-- Footer section -->
     <footer class="u-align-center u-clearfix u-footer u-white u-footer" id="sec-ddd5"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Cape Peninsula University of Technology</p>
       </div></footer>

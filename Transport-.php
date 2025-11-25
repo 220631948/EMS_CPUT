@@ -14,20 +14,24 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
+        // When the document is ready
         $(document).ready(function () {
+            // Attach a click event handler to all elements with the class 'accept-button'
             $(".accept-button").on("click", function () {
                 // Get the record ID from the data attribute
                 var recordId = $(this).data("record-id");
 
                 // AJAX request to handle the "Accept" functionality
                 $.ajax({
-                    url: "Transport-.php", // Replace with your actual PHP script file
+                    url: "Transport-.php", // The current file will handle the request
                     method: "POST",
                     data: { acceptButton: true, recordId: recordId },
                     success: function (response) {
-                        alert(response); // You can replace this with a more user-friendly notification
+                        // Display the response from the server
+                        alert(response);
                     },
                     error: function (error) {
+                        // Log any errors to the console
                         console.error(error);
                     }
                 });
@@ -51,7 +55,7 @@
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-white u-xl-mode" data-lang="en">
-    
+    <!-- Header section with navigation -->
     <?php
     // Database connection details
     $servername = "localhost";
@@ -67,7 +71,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Function to retrieve data from the database
+    /**
+     * Fetches all records from the 'transport' table.
+     *
+     * @param mysqli $conn The database connection object.
+     * @return array An array of associative arrays representing the transport records, or an empty array if no records are found.
+     */
     function fetchDataFromDatabase($conn)
     {
         $sql = "SELECT * FROM transport";
@@ -80,7 +89,13 @@
         }
     }
 
-    // Function to insert data into a different table
+    /**
+     * Inserts a record into the 'approved' table.
+     *
+     * @param mysqli $conn The database connection object.
+     * @param array $data An associative array containing the data to be inserted.
+     * @return bool True on success, false on failure.
+     */
 function insertDataIntoNewTable($conn, $data)
 {
     $sql = "INSERT INTO approved (title, description, description2, description3) VALUES (?, ?, ?, ?)";
@@ -159,6 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["acceptButton"])) {
           </div>
         </nav>
       </div></header>
+    <!-- Main content section with buttons -->
     <section class="u-clearfix u-section-1" id="sec-f291">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <a href="Transport-.php" class="u-align-center u-border-none u-btn u-button-style u-grey-15 u-text-palette-1-base u-btn-1">Available</a>
@@ -166,6 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["acceptButton"])) {
       </div>
     </section>
 
+    <!-- Loop through and display transport records -->
     <?php foreach ($dataFromDatabase as $record) : ?>
 
     <section class="u-align-center u-clearfix u-white u-section-2" id="sec-830e">
@@ -191,6 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["acceptButton"])) {
     <?php endforeach; ?>
    
     
+    <!-- Footer section -->
     <footer class="u-align-center u-clearfix u-footer u-white u-footer" id="sec-ddd5"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Cape Peninsula University of Technology</p>
       </div></footer>
